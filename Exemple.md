@@ -12,3 +12,7 @@
 - Listes
 - Gerer des images plusieurs
 - Textes de documents externes
+
+<div align="center"> This text should be centered </div>
+
+## This one shouldn't be
