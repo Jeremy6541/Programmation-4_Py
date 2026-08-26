@@ -6,6 +6,8 @@
 3. Lecture du fichier Markdown pour tester la récuperation du raccourci
 4. Accomplissement de la tâche en pré-processeur ou en post-processeur
 5. Conversion du document Markdown en HTML par l'entremise de la librairie Mistletoe
+6. Rendre le tout facilement accessible à la distribution
+7. Publication sur Github
 
 ## Qui 
 * Jérémy Roy - Développeur
