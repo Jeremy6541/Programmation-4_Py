@@ -1,4 +1,4 @@
-# Sprint Backlog 26/08/2026
+# Sprint Backlog Semaine du 31 Août
 
 1. Test du code avec plusieurs instances de raccourci
 2. Ajout de la fonctionalité d'envoi en HTML
