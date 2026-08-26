@@ -5,3 +5,4 @@
 3. Ajout de la documentation dans le code
 4. Vérifier s'il y a possibilité de raccourcir le code
 5. Faire un document externe d'explication du fonctionnement du code (documentation)
+6. Ajout de la nouvelle version sur Github
