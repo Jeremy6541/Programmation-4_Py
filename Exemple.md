@@ -16,3 +16,5 @@
 <div align="center"> This text should be centered </div>
 
 ## This one shouldn't be
+
+<div align="center"> This one should be </div>

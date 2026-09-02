@@ -26,3 +26,7 @@ with open("Exemple.md", "r") as Draft_file:
 with open('Exemple.md', 'r') as fin:
     rendered = mistletoe.markdown(fin)  
     print(rendered)
+    fin.close()
+with open('Exemple.html', 'w') as fout:
+  fout.write(rendered)
+  fout.close()
