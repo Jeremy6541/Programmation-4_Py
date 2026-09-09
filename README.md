@@ -7,3 +7,5 @@ Servira à l'incorporation d'une fonction pour centrer du texte sous format Mark
 * Product owner : Philippe Gauthier
 * Scrum Master : Zachary Roy
 * Équipe développeur : Jérémy Roy
+
+* This is a test for the issue #1
