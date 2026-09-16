@@ -23,10 +23,9 @@
 
 ## Introduction
 
-<div align="center">
-
+()
 ***This should be centered***
-</div>
+()
 
 ### Objectif
 
