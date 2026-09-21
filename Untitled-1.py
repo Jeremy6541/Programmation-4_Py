@@ -1,8 +1,13 @@
+from pydoc import html
+
 import mistletoe
 from mistletoe.block_token import Heading
 import re
 from pathlib import Path
 from textwrap import dedent
+import highlighter
+import mistletoe_imgext 
+
 
 # Configuration pour fonction Zachary Roy (Centrage de texte)
 SHORTCUT = "!!"
@@ -111,21 +116,6 @@ def creer_table_matiere(fichier):
 
     print("Table des matières créée.")
 
-
-
-# Envoie du document Markdown modifié à la fonction de rendu HTML
-with open('Centered_file.md', 'r') as fin:
-    rendered = mistletoe.markdown(fin)  
-    print(rendered)
-    fin.close()
-
-# Écriture du rendu HTML dans un fichier de sortie
-with open('projet_1_markdown.md.html', 'w', encoding='utf-8') as fout:
-    fout.write(rendered)
-    fout.close()
-
-
-
 # Configuration pour fonction checklistMD_from_string
 def checklistMD_from_string(md_content):
     """
@@ -229,7 +219,7 @@ def render_tree_block(tree_dict):
     
     return f'<div class="file-tree"><ul>{corps_arbre}</ul></div>'
 
-
+# boucle principale pour traiter le fichier Markdown et générer le HTML
 with open(FILE, "r", encoding="utf-8") as fin:
     markdown_lines = fin.readlines()
 
@@ -261,10 +251,20 @@ if __name__ == "__main__":
 
     #html_body_content = mistletoe.markdown(full_markdown_content)
     full_markdown_content = checklistMD_from_string(full_markdown_content)
+    full_markdown_content = mistletoe_imgext.preprocess(full_markdown_content)
+    # Ajout du surlignage
+    full_markdown_content = highlighter.highlight_main(full_markdown_content)
     # Inclusion du code pour centrer le texte du document Markdown
     full_markdown_content = CenterText(full_markdown_content, 'Centered_file.md')
+
     print(full_markdown_content)
     html_body_content = mistletoe.markdown(full_markdown_content)
+    html_body_content = re.sub(
+        r"\{\{([^|]+)\|(.+?)\}\}",
+        highlighter.ajouter_style,
+        html_body_content
+    )
+
 
     # Add the needed headers
     final_document = f"""<!DOCTYPE html>
@@ -281,7 +281,7 @@ if __name__ == "__main__":
     """
 
 
-    with open("T.md", "w", encoding="utf-8") as fout:
+    with open("6_code_OUT.md", "w", encoding="utf-8") as fout:
         fout.write(full_markdown_content)
 
     with open(OUTPUT_FILE, "w", encoding="utf-8") as fout:
