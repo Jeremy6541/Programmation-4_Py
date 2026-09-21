@@ -15,41 +15,28 @@ FILE = "projet_1_markdown.md"
 OUTPUT_FILE = "output.html"
 
 # Fonction de Jérémy Roy (Centrage de texte)
-def CenterText(String,New_file):
-    found = False  # Variable globale pour suivre l'état de la recherche du motif
-    # Ouverture du document Markdown en mode lecture pour inspection initiale
-    String = String.splitlines('\n')
-    print(String)
+def CenterText(String, New_file):
+    found = False
+    modified_lines = []
 
-    # Ouverture du document Markdown en mode écriture pour modification
-    New_Doc = open(New_file, "w")
-    for Symbol in String:
-        Shortcut = "()" + str("\n")  # Recherche du motif à remplacer
-        if Symbol.find(Shortcut) != -1 and (found == False): # -1 signifie que le motif n'a pas été trouvé
-            Symbol = Symbol.replace(Shortcut, '<div align="center">\n\n', 1) # Remplacement des balises Markdown par des balises HTML (Besoin de 2 \n car le premier n'est pas visible)    
-            # add an empty line
-            found = True  # Indique que le motif a été trouvé et remplacé
+    for line in String.splitlines(keepends=True):
 
-        elif Symbol.find(Shortcut) != -1 and (found == True): # -1 signifie que le motif n'a pas été trouvé
-            Symbol = Symbol.replace(Shortcut, '</div>\n', 1) # Remplacement des balises Markdown par des balises HTML
-            found = False
-        New_Doc.write(Symbol)
-    New_Doc.close()
-    # Envoie du document Markdown modifié à la fonction de rendu HTML
+        if line.strip() == "()":
+            if not found:
+                modified_lines.append('<div align="center">\n')
+                found = True
+            else:
+                modified_lines.append('</div>\n')
+                found = False
+        else:
+            modified_lines.append(line)
 
-    with open(New_file, 'r') as fin:
-        rendered = mistletoe.markdown(fin) 
-        fin.seek(0) # Revenir au début du fichier
-        output = fin.readlines()
-        print(output)
-        return ''.join(output)
-        fin.close()
+    modified_content = ''.join(modified_lines)
 
-    # Écriture du rendu HTML dans un fichier de sortie
-    with open('Exemple.html', 'w') as fout:
-        fout.write(rendered)
-        fout.close()
+    with open(New_file, "w", encoding="utf-8") as New_Doc:
+        New_Doc.write(modified_content)
 
+    return modified_content
 
 # Fonction de Nicolas Migneault (Création de table des matières)
 def creer_table_matiere(fichier):
